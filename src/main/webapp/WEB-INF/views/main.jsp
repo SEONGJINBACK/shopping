@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://kit.fontawesome.com/kit_code.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>SeongjinShop</title>
     <style>
         .navbar {
@@ -105,7 +106,7 @@
     </div>
 
     <div>
-        <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
+        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
         <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">LOGIN</a>
         <a href="#" class="navbar__toggleBtn" ><i class="material-symbols-outlined">
             cleaning_bucket</i></a>
