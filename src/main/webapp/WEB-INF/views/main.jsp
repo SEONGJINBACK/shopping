@@ -104,7 +104,13 @@
         <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
     </div>
 
-    <a href="#" class="navbar__toggleBtn">LOGIN<i class="material-symbols-outlined" style="float: right;">login</i></a>
+    <div>
+        <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
+        <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">LOGIN</a>
+        <a href="#" class="navbar__toggleBtn" ><i class="material-symbols-outlined">
+            cleaning_bucket</i></a>
+    </div>
+
 </nav>
 
 
