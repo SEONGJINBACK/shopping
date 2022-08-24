@@ -10,7 +10,6 @@ public class ViewController {
 
     @RequestMapping("/")
     public String startView(){
-
         return "main";
     }
 
