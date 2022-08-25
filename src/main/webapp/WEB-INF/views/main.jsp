@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    Object userName = session.getAttribute("name");
+    if(userName == null){
+        userName = "GUEST";
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,6 +100,7 @@
 </head>
 
 <body>
+
 <nav class="navbar">
     <div class="navbar__logo">
         <i class="material-symbols-outlined" style="float: left; ">
@@ -106,10 +114,21 @@
     </div>
 
     <div>
+        <%
+            if(userName != "GUEST"){
+        %>
+        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn" style="margin-right: 40px;">LOGOUT</a>
+        <%
+            }else{
+        %>
         <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
-        <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">LOGIN</a>
-        <a href="#" class="navbar__toggleBtn" ><i class="material-symbols-outlined">
-            cleaning_bucket</i></a>
+        <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px;">LOGIN</a>
+        <%
+            }
+        %>
+
+
     </div>
 
 </nav>
@@ -117,13 +136,22 @@
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li><a href="#">Home</a></li>
+        <li style="margin-left: 150px;"><a href="#">Home</a></li>
         <li><a href="#">Gallery</a></li>
         <li><a href="#">Weddings</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Bookings</a></li>
+        <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
+    <div style="display: inline-flex;">
+
+    </div>
 </nav>
+
+<script>
+    sessionStorage.clear();
+</script>
+
 
 </body>
 </html>

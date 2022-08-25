@@ -4,4 +4,52 @@
 <mapper namespace="com.seongjin.shopping.users.mapper.UserMapper">
 
 
+    <select id="doubleCheck" parameterType="String" resultMap="doubleCheckMap">
+        SELECT ID FROM USERS
+        WHERE ID = #{id}
+    </select>
+
+    <resultMap id="doubleCheckMap" type="com.seongjin.shopping.users.to.UserTO">
+        <result property="userId" column="ID"></result>
+<!--        <result property="password" column="PASSWORD"></result>-->
+<!--        <result property="confirmPw" column="CONFIRM_PASSWORD"></result>-->
+<!--        <result property="names" column="NAMES"></result>-->
+<!--        <result property="address" column="ADDR"></result>-->
+<!--        <result property="tel" column="TEL"></result>-->
+<!--        <result property="email" column="EMAIL"></result>-->
+<!--        <result property="birthday" column="BIRTHDAY"></result>-->
+    </resultMap>
+
+    <insert id="userInsert" parameterType="com.seongjin.shopping.users.to.UserTO">
+        INSERT INTO USERS VALUES(
+                                    #{userId},
+                                    #{password},
+                                    #{confirmPw},
+                                    #{names},
+                                    #{address},
+                                    #{tel},
+                                    #{email},
+                                    #{birthday}
+                                )
+    </insert>
+
+    <select id="userLogin" parameterType="String" resultMap="loginCheckMap">
+        SELECT ID , PASSWORD , NAMES
+        FROM USERS
+        WHERE ID = #{userId}
+        AND PASSWORD = #{userPw}
+    </select>
+
+    <resultMap id="loginCheckMap" type="com.seongjin.shopping.users.to.UserTO">
+        <result property="userId" column="ID"></result>
+        <result property="password" column="PASSWORD"></result>
+        <!--        <result property="confirmPw" column="CONFIRM_PASSWORD"></result>-->
+        <result property="names" column="NAMES"></result>
+        <!--        <result property="address" column="ADDR"></result>-->
+        <!--        <result property="tel" column="TEL"></result>-->
+        <!--        <result property="email" column="EMAIL"></result>-->
+        <!--        <result property="birthday" column="BIRTHDAY"></result>-->
+    </resultMap>
+
+
 </mapper>

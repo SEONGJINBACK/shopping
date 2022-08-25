@@ -14,7 +14,6 @@ public class ViewController {
     }
 
 
-
     @RequestMapping(value = "/{viewName}")
     public String view(@PathVariable String viewName) {
 
