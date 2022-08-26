@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     Object userName = session.getAttribute("name");
-    if(userName == null){
+    if (userName == null) {
         userName = "GUEST";
     }
 %>
@@ -13,7 +13,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <script src="https://kit.fontawesome.com/kit_code.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>SeongjinShop</title>
@@ -25,23 +26,28 @@
             background-color: ivory;
             padding: 8px 12px;
         }
+
         .subbar {
             background-color: ivory;
             padding: 8px 12px;
             text-align: center;
         }
+
         body {
             margin: 0;
             background-color: aliceblue;
         }
+
         .navbar__logo i {
             color: brown;
             padding-left: 0;
         }
+
         a {
             text-decoration: none;
             color: black;
         }
+
         .navbar__menu {
             list-style: none;
             display: flex;
@@ -52,6 +58,7 @@
         .navbar__menu li {
             padding: 8px 30px;
         }
+
         .subbar__menu {
             list-style: none;
             margin: 0;
@@ -76,6 +83,7 @@
             padding: 8px 12px;
             margin: 0;
         }
+
         .search {
             position: relative;
             width: 350px;
@@ -90,11 +98,31 @@
         }
 
         img {
-            position : absolute;
+            position: absolute;
             width: 17px;
             top: 10px;
             right: 0.01px;
 
+        }
+
+        .mypageContentBox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 12px;
+            margin-top: 40px;
+        }
+        .mypageContent{
+            border: 1px solid black;
+            border-radius: 20px;
+            height: 500px;
+            width: 800px;
+        }
+        .sideMenu{
+            border: 1px solid black;
+            border-radius: 20px;
+            height: 500px;
+            width: 300px;
         }
     </style>
 </head>
@@ -115,12 +143,13 @@
 
     <div>
         <%
-            if(userName != "GUEST"){
+            if (userName != "GUEST") {
         %>
-        <a href="${pageContext.request.contextPath}/users/mypage" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
-        <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn" style="margin-right: 40px;">LOGOUT</a>
+        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
+           style="margin-right: 40px;">LOGOUT</a>
         <%
-            }else{
+        } else {
         %>
         <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
         <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px;">LOGIN</a>
@@ -148,9 +177,13 @@
     </div>
 </nav>
 
-<script>
-    sessionStorage.clear();
-</script>
+<div class="mypageContentBox">
+    <div class="sideMenu">
+
+    </div>
+    <div class="mypageContent">
+    </div>
+</div>
 
 
 </body>

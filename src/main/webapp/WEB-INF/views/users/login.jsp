@@ -125,7 +125,7 @@
     <div class="navbar__logo">
         <i class="material-symbols-outlined" style="float: left; ">
             home</i>
-        <a href="#" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/main" style="margin-left: 10px; ">White Shop</a>
     </div>
     <div class="search">
         <input type="text" placeholder="검색어 입력">
@@ -190,7 +190,7 @@
     function TimeOut(){
         setTimeout(function (){
             location.href = "${pageContext.request.contextPath}/main";
-        } , 2000);
+        } , 1000);
 
     }
 
