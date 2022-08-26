@@ -180,6 +180,8 @@
 <div class="mypageContentBox">
     <div class="sideMenu">
 
+
+
     </div>
     <div class="mypageContent">
     </div>
