@@ -473,6 +473,12 @@
                                 });
                                 TimeOut()
                             })
+                        }else{
+                            Swal.fire({
+                                icon : "error",
+                                title : "error",
+                                text : "비밀번호 오류"
+                            });
                         }
                     }
                 })()
