@@ -10,4 +10,10 @@ public interface UserService {
     public void setUserInsert(UserTO users);
 
     public ArrayList<UserTO> getUserLogin(String userId , String userPw);
+
+    public UserTO PrivacyData(String id);
+
+    public void UserUpdateData(String id ,String pw ,String address , String email ,String tel);
+
+    public void UserDeleteAction(String id);
 }

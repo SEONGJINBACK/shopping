@@ -51,5 +51,33 @@
         <!--        <result property="birthday" column="BIRTHDAY"></result>-->
     </resultMap>
 
+    <select id="privacyData" parameterType="String" resultMap="privacyDataMap">
+        SELECT ID , PASSWORD, NAMES , ADDR , TEL , EMAIL , BIRTHDAY
+        FROM USERS
+        WHERE ID = #{id}
+    </select>
+
+    <resultMap id="privacyDataMap" type="com.seongjin.shopping.users.to.UserTO">
+        <result property="userId" column="ID"></result>
+        <result property="password" column="PASSWORD"></result>
+        <!--        <result property="confirmPw" column="CONFIRM_PASSWORD"></result>-->
+        <result property="names" column="NAMES"></result>
+        <result property="address" column="ADDR"></result>
+        <result property="tel" column="TEL"></result>
+        <result property="email" column="EMAIL"></result>
+        <result property="birthday" column="BIRTHDAY"></result>
+    </resultMap>
+
+    <update id="updateData" parameterType="String">
+        UPDATE USERS SET
+        PASSWORD = #{pw} , CONFIRM_PASSWORD = #{pw} ,
+        ADDR = #{address} , TEL = #{tel} , EMAIL = #{email}
+        WHERE ID = 'tjdwls5852'
+    </update>
+
+
+    <delete id="deleteData" parameterType="String">
+        DELETE USERS WHERE ID = #{id}
+    </delete>
 
 </mapper>

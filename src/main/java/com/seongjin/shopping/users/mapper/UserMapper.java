@@ -13,4 +13,10 @@ public interface UserMapper {
    public void userInsert(UserTO users);
 
    public ArrayList<UserTO> userLogin(String userId , String userPw);
+
+   public UserTO privacyData(String id);
+
+   public void updateData(String id ,String pw ,String address , String email ,String tel);
+
+   public void deleteData(String id);
 }

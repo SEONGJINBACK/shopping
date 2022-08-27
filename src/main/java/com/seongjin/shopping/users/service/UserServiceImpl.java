@@ -27,4 +27,19 @@ public class UserServiceImpl implements UserService {
         ArrayList<UserTO> userLoginAction = userMapper.userLogin(userId,userPw);
         return userLoginAction;
     }
+    @Override
+    public UserTO PrivacyData(String id){
+        UserTO userPrivacyData = userMapper.privacyData(id);
+        return userPrivacyData;
+    }
+
+    @Override
+    public void UserUpdateData(String id ,String pw ,String address, String email ,String tel){
+        userMapper.updateData(id , pw , address , email , tel);
+    }
+
+    @Override
+    public void UserDeleteAction(String id){
+        userMapper.deleteData(id);
+    }
 }

@@ -149,6 +149,7 @@ public class UserController {
                 HttpSession session = request.getSession();
                 for(UserTO user : userLogin){
                     session.setAttribute("name" , user.getNames());
+                    session.setAttribute("id" , user.getUserId());
                 }
                 map.put("loginUser",userLogin);
                 map.put("errorCode", 1);
@@ -160,6 +161,89 @@ public class UserController {
             }
         }
 
+
+        return map;
+    }
+
+    @RequestMapping(value = "/privacy" , method = RequestMethod.GET)
+    public ModelMap PrivacyData(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+        System.out.println(" 개인정보 요청 : " + id);
+
+        map = new ModelMap();
+
+        UserTO users = userService.PrivacyData(id);
+
+        try {
+            map.put("usersData" , users);
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+    @RequestMapping(value = "/updateAction" , method = RequestMethod.PUT)
+    public ModelMap UsersUpdateAction(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+        String pw = request.getParameter("pw");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String tel = request.getParameter("tel");
+
+        System.out.println(" 정보 업데이트 요청 : " + id);
+        System.out.println(" 정보 업데이트 요청 : " + pw);
+        System.out.println(" 정보 업데이트 요청 : " + address);
+        System.out.println(" 정보 업데이트 요청 : " + email);
+        System.out.println(" 정보 업데이트 요청 : " + tel);
+
+        map = new ModelMap();
+
+       userService.UserUpdateData(id , pw , address ,email, tel);
+
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+    @RequestMapping(value = "/deleteAction" , method = RequestMethod.DELETE)
+    public ModelMap UsersDeleteAction(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+
+        System.out.println(" 회원탈퇴 요청 : " + id);
+
+        map = new ModelMap();
+
+        userService.UserDeleteAction(id);
+
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
 
         return map;
     }
