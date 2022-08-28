@@ -165,7 +165,7 @@
         <%
             if (userName != "GUEST") {
         %>
-        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/mypage" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
         <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
            style="margin-right: 40px;">LOGOUT</a>
         <%

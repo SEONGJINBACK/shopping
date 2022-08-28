@@ -93,7 +93,6 @@ public class UserController {
             HttpSession session = request.getSession();
             session.setAttribute("id",users.getUserId());
             session.setAttribute("name",users.getNames());
-
             map.put("errorCode", 1);
             map.put("errorMsg", "성공!");
 

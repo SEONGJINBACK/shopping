@@ -1,5 +1,6 @@
 package com.seongjin.shopping.users.service;
 
+import com.seongjin.shopping.clothing.to.TshirtTO;
 import com.seongjin.shopping.users.to.UserTO;
 
 import java.util.ArrayList;
@@ -16,4 +17,5 @@ public interface UserService {
     public void UserUpdateData(String id ,String pw ,String address , String email ,String tel);
 
     public void UserDeleteAction(String id);
+
 }
