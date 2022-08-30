@@ -4,6 +4,7 @@ package com.seongjin.shopping.users.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.seongjin.shopping.users.service.UserService;
+import com.seongjin.shopping.users.to.BasketTO;
 import com.seongjin.shopping.users.to.UserTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -248,5 +249,61 @@ public class UserController {
 
         return map;
     }
+    @RequestMapping(value = "/basket" , method = RequestMethod.POST)
+    public ModelMap UsersBasketAction(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+        String productName = request.getParameter("productName");
+        String productSize = request.getParameter("productSize");
+        String productAmount = request.getParameter("productAmount");
+        String productTotalPrice = request.getParameter("productTotalPrice");
+
+        System.out.println("id = " + id);
+        System.out.println("productName = " + productName);
+        System.out.println("productSize = " + productSize);
+        System.out.println("productAmount = " + productAmount);
+        System.out.println("productTotalPrice = " + productTotalPrice);
+
+
+        map = new ModelMap();
+        userService.setUserBasketData(id,productName,productSize,productAmount,productTotalPrice);
+        try {
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+    @RequestMapping(value = "/basketList" , method = RequestMethod.GET)
+    public ModelMap UsersBasketList(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+
+        System.out.println("id = " + id);
+
+        map = new ModelMap();
+
+        ArrayList<BasketTO> basketList = userService.getBasketList(id);
+
+        try{
+            map.put("basketList",basketList);
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.seongjin.shopping.users.mapper;
 
+import com.seongjin.shopping.users.to.BasketTO;
 import com.seongjin.shopping.users.to.UserTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,8 @@ public interface UserMapper {
    public void updateData(String id ,String pw ,String address , String email ,String tel);
 
    public void deleteData(String id);
+
+   public void insertBasketData(String id, String productName, String productSize, String productAmount, String productTotalPrice);
+
+   public ArrayList<BasketTO> selectBasketList(String id);
 }

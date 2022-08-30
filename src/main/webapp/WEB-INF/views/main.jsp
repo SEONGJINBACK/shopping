@@ -104,6 +104,32 @@
             right: 0.01px;
 
         }
+        .imageBox{
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        .image {
+            width: 400px;
+            height: 500px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 1px solid black;
+            display: inline-flex;
+        }
+
+        .smartphoneImage{
+            height:42px;
+            font-size: 30px;
+            border: 1px solid black;
+            width: 400px;
+        }
+
+        .smartphoneName{
+            display: inline;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -126,7 +152,7 @@
         <%
             if (userName != "GUEST") {
         %>
-        <a href="${pageContext.request.contextPath}/users/mypage" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/mypage?userId=${sessionScope.id}" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
         <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
            style="margin-right: 40px;">LOGOUT</a>
         <%
@@ -134,6 +160,7 @@
         %>
         <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
         <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px;">LOGIN</a>
+
         <%
             }
         %>
@@ -145,7 +172,7 @@
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/clothing/tshirt">T-shirt</a></li>
+        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
         <li><a href="#">Gallery</a></li>
         <li><a href="#">Weddings</a></li>
         <li><a href="#">FAQ</a></li>
@@ -154,6 +181,22 @@
     </ul>
     <div style="display: inline-flex;"></div>
 </nav>
+<div class="imageBox" style="display:flex; justify-content: center;">
+    <table>
+        <tr>
+            <td>
+                <div class="imageBox" style="text-align: center;">
+                    <div class="image"
+                         style="background-image: url('${pageContext.request.contextPath}/../../../resources/img/아이폰4s.jpg')">
+                    </div>
+                    <div class="smartphoneImage">
+                        <h4 class="smartphoneName">아이폰 4S</h4>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
 
 </body>

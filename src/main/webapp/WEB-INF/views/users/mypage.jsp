@@ -143,6 +143,26 @@
             font-size: 24px;
         }
 
+        table td{
+            border: 1px solid black;
+        }
+
+        .basketListTable td{
+            border: 1px solid black;
+        }
+
+        .thead {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .tbodyContent{
+            background-color: white;
+            height: 50px;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -223,10 +243,29 @@
         </table>
     </div>
     <div class="mypageContent">
-        <h1 id="test1">장바구니</h1>
+        <div id="ShoppingBasket">
+                <h4>장바구니</h4>
+            <div>
+                <table class="basketList" style="width: 100%;">
+                    <tr>
+                        <td class="thead">사용자 ID</td>
+                        <td class="thead">상품명</td>
+                        <td class="thead">상품 용량</td>
+                        <td class="thead">갯수</td>
+                        <td class="thead">가격</td>
+                        <td class="thead">삭제</td>
+                    </tr>
+                    <tbody class="basketListTable">
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
         <h1 id="test2" hidden>주문</h1>
         <h1 id="test3" hidden>개인</h1>
-        <div id="test4" hidden>
+        <div id="PrivacyInfo" hidden>
             <h1 style="text-align: center;">개인정보</h1>
             <div style="display: flex; justify-content: center; margin-top: 20px;">
                 <div>
@@ -332,31 +371,62 @@
     //회원 정보 삭제 버튼
     const UserDeleteData = document.querySelector("#UserDeleteData");
 
+
+    window.addEventListener("DOMContentLoaded",()=>{
+        $.ajax({
+            url : "${pageContext.request.contextPath}/users/basketList", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            type : "GET",
+            dataType : "json",
+            data : {
+                id : "${sessionScope.id}",
+            }, // HTTP 요청과 함께 서버로 보낼 데이터
+            success : function(data) {
+                var str = '';
+                if(data.basketList.length == 0){
+                    console.log("빈배열입니다.");
+                }else{
+                    data.basketList.map(listData => console.log(listData));
+                    data.basketList.map(list =>
+
+                        str += "<tr><td class='tbodyContent'>" + list.userId + "</td>"
+                            + "<td class='tbodyContent'>"+list.productName+"</td>"
+                            + "<td class='tbodyContent'>"+list.productSize+"</td>"
+                            + "<td class='tbodyContent'>"+list.productAmount+"</td>"
+                            + "<td class='tbodyContent'>"+list.productTotalPrice+"</td>"
+                            + "<td class='tbodyContent'><button>삭제</button></td></tr>"
+                    )
+
+                    $(".basketListTable").html(str);
+                }
+            }
+        })
+    })
+
     UserShoppingBasket.addEventListener("click", () => {
 
         $("#test1").show();
         $("#test2").hide();
         $("#test3").hide();
-        $("#test4").hide();
+        $("#PrivacyInfo").hide();
     });
     OrderInformation.addEventListener("click", () => {
         $("#test1").hide();
         $("#test2").show();
         $("#test3").hide();
-        $("#test4").hide();
+        $("#PrivacyInfo").hide();
     });
     ShippingInformation.addEventListener("click", () => {
         $("#test1").hide();
         $("#test2").hide();
         $("#test3").show();
-        $("#test4").hide();
+        $("#PrivacyInfo").hide();
     });
     Privacy.addEventListener("click", () => {
         PrivacyData();
         $("#test1").hide();
         $("#test2").hide();
         $("#test3").hide();
-        $("#test4").show();
+        $("#PrivacyInfo").show();
     });
 
     function PrivacyData(){

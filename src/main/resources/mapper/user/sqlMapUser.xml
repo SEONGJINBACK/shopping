@@ -79,5 +79,25 @@
     <delete id="deleteData" parameterType="String">
         DELETE USERS WHERE ID = #{id}
     </delete>
+    
+    <insert id="insertBasketData" parameterType="String">
+        INSERT INTO BASKET VALUES( #{id} , #{productName} , #{productSize} , #{productAmount} , #{productTotalPrice} )
+    </insert>
+    
+    <select id="selectBasketList" resultMap="selectBasketListMap" parameterType="String">
+        SELECT ID , PRODUCT_NAME , PRODUCT_SIZE ,PRODUCT_AMOUNT ,PRODUCT_TOTAL_PRICE
+        FROM BASKET
+        WHERE ID = #{id}
+    </select>
+
+    <resultMap id="selectBasketListMap" type="com.seongjin.shopping.users.to.BasketTO">
+        <result property="userId" column="ID"></result>
+        <result property="productName" column="PRODUCT_NAME"></result>
+        <result property="productSize" column="PRODUCT_SIZE"></result>
+        <result property="productAmount" column="PRODUCT_AMOUNT"></result>
+        <result property="productTotalPrice" column="PRODUCT_TOTAL_PRICE"></result>
+
+    </resultMap>
+
 
 </mapper>
