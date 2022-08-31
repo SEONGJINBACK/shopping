@@ -1,6 +1,7 @@
 package com.seongjin.shopping.users.service;
 
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
 
 import java.util.ArrayList;
@@ -21,4 +22,10 @@ public interface UserService {
     public void setUserBasketData(String id, String productName, String productSize, String productAmount, String productTotalPrice);
 
     public ArrayList<BasketTO> getBasketList(String id);
+
+    public void deleteBasketList(String id);
+
+    public void insertOrderList(String id, String totalPrice);
+
+    public ArrayList<OrderTO> getOrderList(String id);
 }

@@ -100,4 +100,27 @@
     </resultMap>
 
 
+    <delete id="deleteBasketList" parameterType="String">
+        DELETE BASKET WHERE ID = #{id}
+    </delete>
+
+    <insert id="insertOrderList" parameterType="String">
+        INSERT INTO ORDER_INFO VALUES(SEONGJIN.order_seq.NEXTVAL , #{id} , TO_CHAR(SYSDATE , 'YYYY-MM-DD') , #{totalPrice} , '결제완료' ,'배송준비중')
+    </insert>
+
+    <select id="selectOrderList" parameterType="String" resultMap="selectOrderListMap">
+        SELECT ORDER_NUMBER , ID , ORDER_DATE , ORDER_TOTAL_PRICE ,ORDER_SUCCESS , DELIVERY_INFO
+        FROM ORDER_INFO
+        WHERE ID = #{id}
+    </select>
+
+    <resultMap id="selectOrderListMap" type="com.seongjin.shopping.users.to.OrderTO">
+        <result property="orderNum" column="ORDER_NUMBER"></result>
+        <result property="userId" column="ID"></result>
+        <result property="orderDate" column="ORDER_DATE"></result>
+        <result property="orderTotalPrice" column="ORDER_TOTAL_PRICE"></result>
+        <result property="orderSuccess" column="ORDER_SUCCESS"></result>
+        <result property="deliveryInfo" column="DELIVERY_INFO"></result>
+    </resultMap>
+
 </mapper>

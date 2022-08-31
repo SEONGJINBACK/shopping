@@ -152,7 +152,6 @@
         <%
             if (userName != "GUEST") {
         %>
-        <a href="${pageContext.request.contextPath}/users/mypage?userId=${sessionScope.id}" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
         <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
            style="margin-right: 40px;">LOGOUT</a>
         <%
@@ -166,36 +165,20 @@
         %>
 
     </div>
-
 </nav>
-
-
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Weddings</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Bookings</a></li>
         <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
     <div style="display: inline-flex;"></div>
 </nav>
-<div class="imageBox" style="display:flex; justify-content: center;">
-    <table>
-        <tr>
-            <td>
-                <div class="imageBox" style="text-align: center;">
-                    <div class="image"
-                         style="background-image: url('${pageContext.request.contextPath}/../../../resources/img/아이폰4s.jpg')">
-                    </div>
-                    <div class="smartphoneImage">
-                        <h4 class="smartphoneName">아이폰 4S</h4>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
+
+<div style="border: 1px solid black; width: 100%; height: 800px;">
+
+    <h1 style="text-align: center;">주문요청</h1>
+
+
+
 </div>
 
 

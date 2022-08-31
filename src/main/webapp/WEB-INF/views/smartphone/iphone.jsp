@@ -148,7 +148,7 @@
     <div class="navbar__logo">
         <i class="material-symbols-outlined" style="float: left; ">
             home</i>
-        <a href="${pageContext.request.contextPath}/main" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; ">White Shop</a>
     </div>
 
     <div class="search">

@@ -143,10 +143,6 @@
             font-size: 24px;
         }
 
-        table td{
-            border: 1px solid black;
-        }
-
         .basketListTable td{
             border: 1px solid black;
         }
@@ -164,6 +160,15 @@
             text-align: center;
         }
 
+        .user_table{
+            width: 500px;
+            text-align: center;
+        }
+        .user_table input{
+            width: 100%;
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -173,7 +178,7 @@
     <div class="navbar__logo">
         <i class="material-symbols-outlined" style="float: left; ">
             home</i>
-        <a href="${pageContext.request.contextPath}/main" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; ">White Shop</a>
     </div>
 
     <div class="search">
@@ -205,16 +210,14 @@
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li style="margin-left: 150px;"><a href="#">Home</a></li>
+        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
         <li><a href="#">Gallery</a></li>
         <li><a href="#">Weddings</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Bookings</a></li>
         <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
-    <div style="display: inline-flex;">
-
-    </div>
+    <div style="display: inline-flex;"></div>
 </nav>
 
 <div class="mypageContentBox">
@@ -244,7 +247,7 @@
     </div>
     <div class="mypageContent">
         <div id="ShoppingBasket">
-                <h4>장바구니</h4>
+                <h1 style="text-align: center;">장바구니</h1>
             <div>
                 <table class="basketList" style="width: 100%;">
                     <tr>
@@ -259,11 +262,34 @@
 
                     </tbody>
 
+                </table>
+            </div>
+            <div style="display: inline-flex; float:right; margin-top: 20px; margin-right: 70px;">
+                <input type="text" readonly style="width: 80px; border: none; background-color: black; color: white; font-weight: bold; font-size: 24px;" value="총 금액">
+                <input type="text" id="OrderTotalPrice" readonly style="font-size: 24px; width: 160px; border: none; text-align: right;" />
+                <button id="paymentBtn" style="background-size: contain; background-color: aliceblue; background-repeat: no-repeat; background-position: center; margin-left: 30px; cursor: pointer; width: 140px; border: none; background-image: url('${pageContext.request.contextPath}/../../../resources/img/kakaopay.png')"></button>
+            </div>
+        </div>
+
+        <div id="OrderInfo" hidden>
+            <h1 style="text-align: center;">주문정보</h1>
+            <div>
+                <table class="OrderList" style="width: 100%;">
+                    <tr>
+                        <td class="thead">주문 ID</td>
+                        <td class="thead">사용자 ID</td>
+                        <td class="thead">주문일자</td>
+                        <td class="thead">TOTAL</td>
+                        <td class="thead">결제처리</td>
+                        <td class="thead">배송상태</td>
+                    </tr>
+                    <tbody class="OrderListTable">
+
+                    </tbody>
 
                 </table>
             </div>
         </div>
-        <h1 id="test2" hidden>주문</h1>
         <h1 id="test3" hidden>개인</h1>
         <div id="PrivacyInfo" hidden>
             <h1 style="text-align: center;">개인정보</h1>
@@ -278,32 +304,26 @@
                         <tr>
                             <td class="input_first">비밀번호</td>
                             <td><input type="text" readonly id="before_pw"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">이름</td>
                             <td><input id="before_name" type="text" readonly/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">주소</td>
                             <td><input id="before_address" type="text" readonly/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">전화번호</td>
                             <td><input id="before_tel" type="text" readonly/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">이메일</td>
                             <td><input id="before_email" type="text" readonly/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">생일</td>
                             <td><input id="before_birth" type="text" readonly/></td>
-                            <td></td>
                         </tr>
                     </table>
                 </div>
@@ -318,32 +338,26 @@
                         <tr>
                             <td class="input_first">비밀번호</td>
                             <td><input type="text" id="after_pw"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">이름</td>
                             <td><input id="after_name" readonly type="text"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">주소</td>
                             <td><input id="after_address" type="text"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">전화번호</td>
                             <td><input id="after_tel" type="text"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">이메일</td>
                             <td><input id="after_email" type="text"/></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="input_first">생일</td>
                             <td><input id="after_birth" readonly type="text"/></td>
-                            <td></td>
                         </tr>
                     </table>
                 </div>
@@ -370,7 +384,10 @@
     const UserUpdateData = document.querySelector("#UserUpdateData");
     //회원 정보 삭제 버튼
     const UserDeleteData = document.querySelector("#UserDeleteData");
+    //카카오 페이 결제버튼
+    const paymentBtn = document.querySelector("#paymentBtn");
 
+    let totalPrice = 0;
 
     window.addEventListener("DOMContentLoaded",()=>{
         $.ajax({
@@ -382,12 +399,14 @@
             }, // HTTP 요청과 함께 서버로 보낼 데이터
             success : function(data) {
                 var str = '';
+                var total = 0;
                 if(data.basketList.length == 0){
                     console.log("빈배열입니다.");
                 }else{
-                    data.basketList.map(listData => console.log(listData));
+                    data.basketList.map(listData =>
+                        total += Number(listData.productTotalPrice)
+                    );
                     data.basketList.map(list =>
-
                         str += "<tr><td class='tbodyContent'>" + list.userId + "</td>"
                             + "<td class='tbodyContent'>"+list.productName+"</td>"
                             + "<td class='tbodyContent'>"+list.productSize+"</td>"
@@ -395,39 +414,84 @@
                             + "<td class='tbodyContent'>"+list.productTotalPrice+"</td>"
                             + "<td class='tbodyContent'><button>삭제</button></td></tr>"
                     )
-
                     $(".basketListTable").html(str);
+                    totalPrice = total;
+                    $("#OrderTotalPrice").val(total+"원");
                 }
             }
         })
     })
 
+    paymentBtn.addEventListener("click",()=>{
+        $.ajax({
+            url : "${pageContext.request.contextPath}/users/kakaoPay",
+            dataType : "json",
+            data : {
+                id : "${sessionScope.id}",
+                total : totalPrice,
+            },
+            success : function(data) {
+                var box = data.next_redirect_pc_url;
+                window.open(box);
+            },
+        })
+    })
+
+
     UserShoppingBasket.addEventListener("click", () => {
 
-        $("#test1").show();
-        $("#test2").hide();
+        $("#ShoppingBasket").show();
+        $("#OrderInfo").hide();
         $("#test3").hide();
         $("#PrivacyInfo").hide();
     });
     OrderInformation.addEventListener("click", () => {
-        $("#test1").hide();
-        $("#test2").show();
+        OrderList();
+        $("#ShoppingBasket").hide();
+        $("#OrderInfo").show();
         $("#test3").hide();
         $("#PrivacyInfo").hide();
     });
     ShippingInformation.addEventListener("click", () => {
-        $("#test1").hide();
-        $("#test2").hide();
+        $("#ShoppingBasket").hide();
+        $("#OrderInfo").hide();
         $("#test3").show();
         $("#PrivacyInfo").hide();
     });
     Privacy.addEventListener("click", () => {
         PrivacyData();
-        $("#test1").hide();
-        $("#test2").hide();
+        $("#ShoppingBasket").hide();
+        $("#OrderInfo").hide();
         $("#test3").hide();
         $("#PrivacyInfo").show();
     });
+
+    function OrderList(){
+        $.ajax({
+            url : "${pageContext.request.contextPath}/users/OrderList", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            type : "GET",
+            dataType : "json",
+            data : {
+                id : "${sessionScope.id}"
+            }, // HTTP 요청과 함께 서버로 보낼 데이터
+            success : function(data) {
+                var str = '';
+                if(data.orderList.length == 0){
+                    console.log("빈배열입니다.");
+                }else{
+                    data.orderList.map(list =>
+                        str += "<tr><td class='tbodyContent'>" + list.orderNum + "</td>"
+                            + "<td class='tbodyContent'>"+list.userId+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderDate+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderTotalPrice+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderSuccess+"</td>"
+                            + "<td class='tbodyContent'>"+list.deliveryInfo+"</td></tr>"
+                    )
+                    $(".OrderListTable").html(str);
+                }
+            },
+        })
+    }
 
     function PrivacyData(){
         $.ajax({

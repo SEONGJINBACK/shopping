@@ -2,6 +2,7 @@ package com.seongjin.shopping.users.service;
 
 import com.seongjin.shopping.users.mapper.UserMapper;
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,22 @@ public class UserServiceImpl implements UserService {
     public ArrayList<BasketTO> getBasketList(String id){
         ArrayList<BasketTO> basketList = userMapper.selectBasketList(id);
         return basketList;
+    }
+
+    @Override
+    public void deleteBasketList(String id){
+        userMapper.deleteBasketList(id);
+    }
+
+
+    @Override
+    public void insertOrderList(String id, String totalPrice){
+        userMapper.insertOrderList(id,totalPrice);
+    }
+
+    @Override
+    public ArrayList<OrderTO> getOrderList(String id){
+        ArrayList<OrderTO> orderList = userMapper.selectOrderList(id);
+        return orderList;
     }
 }

@@ -5,19 +5,29 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.seongjin.shopping.users.service.UserService;
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users/*")
@@ -27,6 +37,7 @@ public class UserController {
     private UserService userService;
 
     ModelMap map = null;
+    String totalPrice = "";
 
     //private static Gson gson = new Gson();
 
@@ -304,6 +315,143 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/kakaoPay")
+    @ResponseBody
+    public String KakaoPay(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+        totalPrice = request.getParameter("total");
+        ArrayList<BasketTO> basketList = userService.getBasketList(id);
+
+        int sum = 0;
+        String product = basketList.get(0).getProductName();
+        int subProduct = basketList.size()-1;
+        String ProductEncode = "";
+        String SubProductEncode = "";
+        String str1 = "외";
+        String str2 = "개의 상품";
+        String str1Encode ="";
+        String str2Encode ="";
+        try {
+            ProductEncode = URLEncoder.encode(product,"UTF-8");
+            SubProductEncode = URLEncoder.encode(String.valueOf(subProduct),"UTF-8");
+            str1Encode = URLEncoder.encode(str1,"UTF-8");
+            str2Encode = URLEncoder.encode(str2,"UTF-8");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        for(BasketTO List : basketList){
+            sum += Integer.parseInt(List.getProductTotalPrice());
+        }
+        System.out.println("product = " + product);
+        System.out.println("sum = " + sum);
+        System.out.println("subProduct = " + subProduct);
+
+        try {
+        URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
+        HttpURLConnection serverMapping = (HttpURLConnection) address.openConnection();
+        serverMapping.setRequestMethod("POST");
+        serverMapping.setRequestProperty("Authorization","KakaoAK 18df0af20da89061eadf2f0619c2d30c");
+        serverMapping.setRequestProperty("Content-type","application/x-www-form-urlencoded;charset=utf-8");
+        serverMapping.setDoOutput(true);
+        String parameter = "cid=TC0ONETIME&partner_order_id="+id+"&partner_user_id="+id+"&item_name="+ ProductEncode +" "+str1Encode +" "+SubProductEncode + str2Encode + "&quantity=1&total_amount="+sum+"&vat_amount=200&tax_free_amount=0&approval_url=\t\n" +
+                "http://localhost:8405/users/success&fail_url=\t\n" +
+                "http://localhost:8405/users/fail&cancel_url=\t\n" +
+                "http://localhost:8405/users/mypage";
+        OutputStream direct = serverMapping.getOutputStream();
+        DataOutputStream dataDirect = new DataOutputStream(direct);
+        dataDirect.writeBytes(parameter);
+        dataDirect.close();
+
+        int result = serverMapping.getResponseCode();
+
+        InputStream requests;
+        if(result==200){
+            requests = serverMapping.getInputStream();
+        }else{
+            requests = serverMapping.getErrorStream();
+        }
+        InputStreamReader read = new InputStreamReader(requests);
+        BufferedReader bufferReader = new BufferedReader(read);
+        return bufferReader.readLine();
+        }catch (MalformedURLException e1){
+            e1.printStackTrace();
+        }catch (IOException e2){
+            e2.printStackTrace();
+        }
+        return "main";
+    }
+
+    @RequestMapping(value = "/deleteBasket" , method = RequestMethod.DELETE)
+    public ModelMap UsersBasketListDelete(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("userId");
+        
+        map = new ModelMap();
+
+        userService.deleteBasketList(id);
+
+        try{
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+    @RequestMapping(value = "/insertOrderList" , method = RequestMethod.POST)
+    public ModelMap UsersInsertOrderList(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+
+        map = new ModelMap();
+        System.out.println("insert = " + id);
+
+        userService.insertOrderList(id , totalPrice);
+
+        try{
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+    @RequestMapping(value = "/OrderList" , method = RequestMethod.GET)
+    public ModelMap UsersOrderList(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+
+        map = new ModelMap();
+        System.out.println("select = " + id);
+
+        ArrayList<OrderTO> orderList = userService.getOrderList(id);
+
+        try{
+            map.put("orderList" , orderList);
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
 
 
 }

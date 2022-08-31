@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    Object userName = session.getAttribute("name");
+    if (userName == null) {
+        userName = "GUEST";
+    }
+%>
 <% String redirect = request.getParameter("redirect");
 if(redirect==null){
     redirect = "/main";
@@ -131,7 +137,7 @@ if(redirect==null){
     <div class="navbar__logo">
         <i class="material-symbols-outlined" style="float: left; ">
             home</i>
-        <a href="${pageContext.request.contextPath}/main" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; ">White Shop</a>
     </div>
     <div class="search">
         <input type="text" placeholder="검색어 입력">
@@ -147,11 +153,12 @@ if(redirect==null){
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li><a href="#">Home</a></li>
+        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
         <li><a href="#">Gallery</a></li>
         <li><a href="#">Weddings</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Bookings</a></li>
+        <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
 </nav>
 <h2 style="text-align: center; margin-top: 160px;">로그인</h2>
@@ -201,6 +208,14 @@ if(redirect==null){
         }
     }
 
+    function managerOut(){
+        if("<%=redirect%>".length > 0 ){
+            setTimeout(function (){
+                location.href = "${pageContext.request.contextPath}/manager";
+            } , 1000);
+        }
+    }
+
     function LoginAction(){
         $.ajax({
             url : "${pageContext.request.contextPath}/users/loginAction", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -224,12 +239,22 @@ if(redirect==null){
                      console.log("아이디 일치함");
                      if(userPw.value == data.loginUser[0].password){
                          console.log("패스워드 일치함");
-                         Swal.fire({
-                             icon : "success",
-                             title : "Good",
-                             text : "어서오세요 " + data.loginUser[0].names + "님 환영합니다.",
-                         });
-                         TimeOut();
+                         if(userId.value == "admin"){
+                             console.log("관리자 접속");
+                             Swal.fire({
+                                 icon : "success",
+                                 title : "Good",
+                                 text : "어서오세요 " + data.loginUser[0].names + "님 환영합니다.",
+                             });
+                             managerOut();
+                         }else{
+                             Swal.fire({
+                                 icon : "success",
+                                 title : "Good",
+                                 text : "어서오세요 " + data.loginUser[0].names + "님 환영합니다.",
+                             });
+                             TimeOut();
+                         }
                      }else{
                          console.log("패스워드 불일치함");
                          return;
