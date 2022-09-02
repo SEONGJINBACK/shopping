@@ -28,4 +28,8 @@ public interface UserService {
     public void insertOrderList(String id, String totalPrice);
 
     public ArrayList<OrderTO> getOrderList(String id);
+
+    public ArrayList<OrderTO> getOrderListAll();
+
+    public ArrayList<OrderTO> getDetailOrder(String orderNum);
 }

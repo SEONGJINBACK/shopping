@@ -31,4 +31,8 @@ public interface UserMapper {
    public void insertOrderList(String id, String totalPrice);
 
    public ArrayList<OrderTO> selectOrderList(String id);
+
+   public ArrayList<OrderTO> selectOrderListAll();
+
+   public ArrayList<OrderTO> detailOrder(String orderNum);
 }

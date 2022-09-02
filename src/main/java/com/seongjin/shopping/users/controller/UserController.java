@@ -453,5 +453,72 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/OrderListAll" , method = RequestMethod.GET)
+    public ModelMap UsersOrderListAll(HttpServletRequest request , HttpServletResponse response){
+
+        map = new ModelMap();
+
+        ArrayList<OrderTO> orderListAll = userService.getOrderListAll();
+
+        try{
+            map.put("orderListAll" , orderListAll);
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+    @RequestMapping(value = "/SelectDetailOrder" , method = RequestMethod.GET)
+    public ModelMap SelectDetailOrder(HttpServletRequest request , HttpServletResponse response){
+
+        String OrderNum = request.getParameter("OrderNum");
+
+        map = new ModelMap();
+        System.out.println("OrderNum = " + OrderNum);
+
+        ArrayList<OrderTO> selectDetailOrder = userService.getDetailOrder(OrderNum);
+
+        try{
+            map.put("selectDetailOrder",selectDetailOrder);
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
+
+    @RequestMapping(value = "/DeliveryInfo" , method = RequestMethod.POST)
+    public ModelMap adminDeliveryInfo(HttpServletRequest request , HttpServletResponse response){
+
+        String id = request.getParameter("id");
+        String list1 = request.getParameter("1");
+        System.out.println("list1 = " + list1);
+        System.out.println("id = " + id);
+
+        try{
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
 
 }

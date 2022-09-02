@@ -69,8 +69,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ArrayList<OrderTO> getOrderListAll(){
+        ArrayList<OrderTO> orderListAll = userMapper.selectOrderListAll();
+        return orderListAll;
+    }
+    @Override
     public ArrayList<OrderTO> getOrderList(String id){
         ArrayList<OrderTO> orderList = userMapper.selectOrderList(id);
         return orderList;
+    }
+
+    @Override
+    public ArrayList<OrderTO> getDetailOrder(String orderNum){
+        ArrayList<OrderTO> detailOrder = userMapper.detailOrder(orderNum);
+        return detailOrder;
     }
 }
