@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.seongjin.shopping.users.service.UserService;
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.DeliveryTO;
 import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
 import org.apache.tomcat.util.json.JSONParser;
@@ -474,6 +475,46 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/deliveryInfo" , method = RequestMethod.POST)
+    public ModelMap InsertDeliveryInfo(HttpServletRequest request , HttpServletResponse response){
+
+        map = new ModelMap();
+
+        String orderNum = request.getParameter("orderNum");
+        String userId = request.getParameter("userId");
+        String orderDate = request.getParameter("orderDate");
+        String orderTotalPrice = request.getParameter("orderTotalPrice");
+        String orderSuccess = request.getParameter("orderSuccess");
+        String deliveryCom = request.getParameter("deliveryCom");
+        String postNum = request.getParameter("postNum");
+        String deliveryInfo = request.getParameter("deliveryInfo");
+
+        System.out.println("배송처리");
+        System.out.println("orderNum = " + orderNum);
+        System.out.println("userId = " + userId);
+        System.out.println("orderDate = " + orderDate);
+        System.out.println("orderTotalPrice = " + orderTotalPrice);
+        System.out.println("orderSuccess = " + orderSuccess);
+        System.out.println("deliveryCom = " + deliveryCom);
+        System.out.println("postNum = " + postNum);
+        System.out.println("deliveryInfo = " + deliveryInfo);
+
+        userService.setUserOrderInfoUpdate(orderNum,deliveryInfo);
+        userService.setDeliveryInfo(orderNum,userId,orderDate,orderTotalPrice,orderSuccess,deliveryCom,postNum,deliveryInfo);
+
+        try{
+            map.put("errorCode", 1);
+            map.put("errorMsg", "성공!");
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            map.put("errorCode", -1);
+            map.put("errorMsg", exception.getMessage());
+        }
+
+        return map;
+    }
+
     @RequestMapping(value = "/SelectDetailOrder" , method = RequestMethod.GET)
     public ModelMap SelectDetailOrder(HttpServletRequest request , HttpServletResponse response){
 
@@ -498,16 +539,18 @@ public class UserController {
         return map;
     }
 
-
-    @RequestMapping(value = "/DeliveryInfo" , method = RequestMethod.POST)
-    public ModelMap adminDeliveryInfo(HttpServletRequest request , HttpServletResponse response){
+    @RequestMapping(value = "/DeliveryList" , method = RequestMethod.GET)
+    public ModelMap SelectDeliveryList(HttpServletRequest request , HttpServletResponse response){
 
         String id = request.getParameter("id");
-        String list1 = request.getParameter("1");
-        System.out.println("list1 = " + list1);
+
+        map = new ModelMap();
         System.out.println("id = " + id);
 
+        ArrayList<DeliveryTO> deliveryList = userService.getDeliveryList(id);
+
         try{
+            map.put("deliveryList",deliveryList);
             map.put("errorCode", 1);
             map.put("errorMsg", "성공!");
 
@@ -519,6 +562,27 @@ public class UserController {
 
         return map;
     }
+
+//    @RequestMapping(value = "/DeliveryInfo" , method = RequestMethod.POST)
+//    public ModelMap adminDeliveryInfo(HttpServletRequest request , HttpServletResponse response){
+//
+//        String id = request.getParameter("id");
+//        String list1 = request.getParameter("1");
+//        System.out.println("list1 = " + list1);
+//        System.out.println("id = " + id);
+//
+//        try{
+//            map.put("errorCode", 1);
+//            map.put("errorMsg", "성공!");
+//
+//        }catch(Exception exception){
+//            exception.printStackTrace();
+//            map.put("errorCode", -1);
+//            map.put("errorMsg", exception.getMessage());
+//        }
+//
+//        return map;
+//    }
 
 
 }

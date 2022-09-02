@@ -290,7 +290,28 @@
                 </table>
             </div>
         </div>
-        <h1 id="test3" hidden>개인</h1>
+        <div id="DeliveryInfo" hidden>
+            <h1 style="text-align: center;">배송정보</h1>
+            <div>
+                <table class="DeliveryInfoList" style="width: 100%;">
+                    <tr>
+                        <td class="thead">배송번호</td>
+                        <td class="thead">주문번호</td>
+                        <td class="thead">사용자 ID</td>
+                        <td class="thead">주문일자</td>
+                        <td class="thead">TOTAL</td>
+                        <td class="thead">결제처리</td>
+                        <td class="thead">택배사</td>
+                        <td class="thead">송장번호</td>
+                        <td class="thead">배송상태</td>
+                    </tr>
+                    <tbody class="UserDeliveryListTable">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
         <div id="PrivacyInfo" hidden>
             <h1 style="text-align: center;">개인정보</h1>
             <div style="display: flex; justify-content: center; margin-top: 20px;">
@@ -442,30 +463,61 @@
 
         $("#ShoppingBasket").show();
         $("#OrderInfo").hide();
-        $("#test3").hide();
+        $("#DeliveryInfo").hide();
         $("#PrivacyInfo").hide();
     });
     OrderInformation.addEventListener("click", () => {
         OrderList();
         $("#ShoppingBasket").hide();
         $("#OrderInfo").show();
-        $("#test3").hide();
+        $("#DeliveryInfo").hide();
         $("#PrivacyInfo").hide();
     });
     ShippingInformation.addEventListener("click", () => {
+        DeliveryList();
         $("#ShoppingBasket").hide();
         $("#OrderInfo").hide();
-        $("#test3").show();
+        $("#DeliveryInfo").show();
         $("#PrivacyInfo").hide();
     });
     Privacy.addEventListener("click", () => {
         PrivacyData();
         $("#ShoppingBasket").hide();
         $("#OrderInfo").hide();
-        $("#test3").hide();
+        $("#DeliveryInfo").hide();
         $("#PrivacyInfo").show();
     });
 
+    function DeliveryList() {
+        $.ajax({
+            url : "${pageContext.request.contextPath}/users/DeliveryList", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            type : "GET",
+            dataType : "json",
+            data : {
+                id : "${sessionScope.id}"
+            }, // HTTP 요청과 함께 서버로 보낼 데이터
+            success : function(data) {
+                var str = '';
+                if(data.deliveryList.length == 0){
+                    console.log("빈배열입니다.");
+                }else{
+                    data.deliveryList.map(list =>
+                        str += "<tr><td class='tbodyContent'>" + list.deliveryNum + "</td>"
+                            + "<td class='tbodyContent'>"+list.orderNum+"</td>"
+                            + "<td class='tbodyContent'>"+list.userId+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderDate+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderTotalPrice+"</td>"
+                            + "<td class='tbodyContent'>"+list.orderSuccess+"</td>"
+                            + "<td class='tbodyContent'>"+list.deliveryCom+"</td>"
+                            + "<td class='tbodyContent'>"+list.postNum+"</td>"
+                            + "<td class='tbodyContent'>"+list.deliveryInfo+"</td></tr>"
+                    )
+                    $(".UserDeliveryListTable").html(str);
+                }
+            },
+        })
+    }
+    
     function OrderList(){
         $.ajax({
             url : "${pageContext.request.contextPath}/users/OrderList", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

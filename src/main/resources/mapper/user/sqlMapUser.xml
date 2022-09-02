@@ -111,6 +111,7 @@
     <select id="selectOrderListAll" resultMap="selectOrderListAllMap">
         SELECT ORDER_NUMBER , ID , ORDER_DATE , ORDER_TOTAL_PRICE ,ORDER_SUCCESS , DELIVERY_INFO
         FROM ORDER_INFO
+        WHERE DELIVERY_INFO = '배송준비중'
     </select>
 
     <resultMap id="selectOrderListAllMap" type="com.seongjin.shopping.users.to.OrderTO">
@@ -149,6 +150,44 @@
         <result property="orderDate" column="ORDER_DATE"></result>
         <result property="orderTotalPrice" column="ORDER_TOTAL_PRICE"></result>
         <result property="orderSuccess" column="ORDER_SUCCESS"></result>
+        <result property="deliveryInfo" column="DELIVERY_INFO"></result>
+    </resultMap>
+
+    <insert id="deliveryInfo" parameterType="String">
+        INSERT INTO DELIVERY_INFO VALUES(
+                                            SEONGJIN.delivery_seq.NEXTVAL,
+                                            #{orderNum},
+                                            #{userId},
+                                            #{orderDate},
+                                            #{orderTotalPrice},
+                                            #{orderSuccess},
+                                            #{deliveryCom},
+                                            #{postNum},
+                                            #{deliveryInfo}
+                                        )
+    </insert>
+
+    <update id="userOrderUpdate" parameterType="String">
+        UPDATE ORDER_INFO SET DELIVERY_INFO = #{deliveryInfo}
+        WHERE ORDER_NUMBER = #{orderNum}
+    </update>
+
+    <select id="deliveryList" resultMap="deliveryListMap" parameterType="String">
+        SELECT DELIVERY_NUMBER , ORDER_NUMBER ,ID ,ORDER_DATE ,ORDER_TOTAL_PRICE ,ORDER_SUCCESS,
+               DELIVERY_COM ,  POST_NUM , DELIVERY_INFO
+        FROM DELIVERY_INFO
+        WHERE ID = #{id}
+    </select>
+
+    <resultMap id="deliveryListMap" type="com.seongjin.shopping.users.to.DeliveryTO">
+        <result property="deliveryNum" column="DELIVERY_NUMBER"></result>
+        <result property="orderNum" column="ORDER_NUMBER"></result>
+        <result property="userId" column="ID"></result>
+        <result property="orderDate" column="ORDER_DATE"></result>
+        <result property="orderTotalPrice" column="ORDER_TOTAL_PRICE"></result>
+        <result property="orderSuccess" column="ORDER_SUCCESS"></result>
+        <result property="deliveryCom" column="DELIVERY_COM"></result>
+        <result property="postNum" column="POST_NUM"></result>
         <result property="deliveryInfo" column="DELIVERY_INFO"></result>
     </resultMap>
 

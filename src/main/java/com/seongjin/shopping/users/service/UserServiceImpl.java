@@ -2,6 +2,7 @@ package com.seongjin.shopping.users.service;
 
 import com.seongjin.shopping.users.mapper.UserMapper;
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.DeliveryTO;
 import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,4 +85,20 @@ public class UserServiceImpl implements UserService {
         ArrayList<OrderTO> detailOrder = userMapper.detailOrder(orderNum);
         return detailOrder;
     }
+    @Override
+    public void setDeliveryInfo(String orderNum, String userId, String orderDate, String orderTotalPrice, String orderSuccess, String deliveryCom, String postNum, String deliveryInfo){
+        userMapper.deliveryInfo(orderNum,userId,orderDate,orderTotalPrice,orderSuccess,deliveryCom,postNum,deliveryInfo);
+    }
+
+    @Override
+    public void setUserOrderInfoUpdate(String orderNum ,String deliveryInfo){
+        userMapper.userOrderUpdate(orderNum,deliveryInfo);
+    }
+
+    @Override
+    public ArrayList<DeliveryTO> getDeliveryList(String id){
+        ArrayList<DeliveryTO> DeliveryList = userMapper.deliveryList(id);
+        return DeliveryList;
+    }
+
 }

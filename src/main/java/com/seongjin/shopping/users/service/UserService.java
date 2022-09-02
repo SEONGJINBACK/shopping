@@ -1,6 +1,7 @@
 package com.seongjin.shopping.users.service;
 
 import com.seongjin.shopping.users.to.BasketTO;
+import com.seongjin.shopping.users.to.DeliveryTO;
 import com.seongjin.shopping.users.to.OrderTO;
 import com.seongjin.shopping.users.to.UserTO;
 
@@ -32,4 +33,10 @@ public interface UserService {
     public ArrayList<OrderTO> getOrderListAll();
 
     public ArrayList<OrderTO> getDetailOrder(String orderNum);
+
+    public void setDeliveryInfo(String orderNum, String userId, String orderDate, String orderTotalPrice, String orderSuccess, String deliveryCom, String postNum, String deliveryInfo);
+
+    public void setUserOrderInfoUpdate(String orderNum , String deliveryInfo);
+
+    public ArrayList<DeliveryTO> getDeliveryList(String id);
 }
