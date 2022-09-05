@@ -2,6 +2,7 @@ package com.seongjin.shopping.smartphone.service;
 
 
 import com.seongjin.shopping.smartphone.mapper.SmartPhoneMapper;
+import com.seongjin.shopping.smartphone.to.GalaxyTO;
 import com.seongjin.shopping.smartphone.to.IPhoneTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,5 @@ public IPhoneTO getSmartPhoneDetail(String productName){
     IPhoneTO getSmartPhoneDetail = smartPhoneMapper.selectSmartPhoneDetail(productName);
     return getSmartPhoneDetail;
 }
+
 }

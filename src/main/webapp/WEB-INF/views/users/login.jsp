@@ -31,12 +31,13 @@ if(redirect==null){
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: ivory;
+            background-color: black;
             padding: 8px 12px;
+            color: white;
         }
 
         .subbar {
-            background-color: ivory;
+            background-color: black;
             padding: 8px 12px;
             text-align: center;
         }
@@ -53,7 +54,9 @@ if(redirect==null){
 
         a {
             text-decoration: none;
-            color: black;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .navbar__menu {
@@ -135,31 +138,46 @@ if(redirect==null){
 
 <nav class="navbar">
     <div class="navbar__logo">
-        <i class="material-symbols-outlined" style="float: left; ">
-            home</i>
-        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; color: white; font-weight: bold; font-size: 24px;">White Shop</a>
     </div>
+
     <div class="search">
         <input type="text" placeholder="검색어 입력">
         <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
     </div>
+
     <div>
-        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
-        <a href="#" class="navbar__toggleBtn" style="margin-right: 5px;">LOGIN</a>
-        <a href="#" class="navbar__toggleBtn"><i class="material-symbols-outlined">
-            cleaning_bucket</i></a>
+        <%
+            if (userName != "GUEST") {
+        %>
+        <a href="${pageContext.request.contextPath}/users/mypage?userId=${sessionScope.id}" class="navbar__toggleBtn" style="margin-right: 5px; color: white; font-weight: bold; font-size: 24px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
+           style="margin-right: 40px; color: white; font-weight: bold; font-size: 24px;">LOGOUT</a>
+        <%
+        } else {
+        %>
+        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px; color: white; font-weight: bold; font-size: 24px;">JOIN</a>
+        <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px; color: white; font-weight: bold; font-size: 24px;">LOGIN</a>
+
+        <%
+            }
+        %>
+
     </div>
+
 </nav>
+
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Weddings</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Bookings</a></li>
+        <li style="margin-left: 150px; margin-top: 10px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
+        <li><a href="#">Galaxy</a></li>
+        <li><a href="#">GalaxyTAP</a></li>
+        <li><a href="#">IPAD</a></li>
+        <li><a href="#">LG</a></li>
         <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
+    <div style="display: inline-flex;"></div>
 </nav>
 <h2 style="text-align: center; margin-top: 160px;">로그인</h2>
 <div style="display: flex; justify-content: center;">

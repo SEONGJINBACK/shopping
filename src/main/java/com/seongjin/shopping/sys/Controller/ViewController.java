@@ -2,6 +2,7 @@ package com.seongjin.shopping.sys.Controller;
 
 
 import com.seongjin.shopping.smartphone.service.SmartPhoneService;
+import com.seongjin.shopping.smartphone.to.GalaxyTO;
 import com.seongjin.shopping.smartphone.to.IPhoneTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

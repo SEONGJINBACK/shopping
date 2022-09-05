@@ -2,6 +2,7 @@ package com.seongjin.shopping.smartphone.Controller;
 
 
 import com.seongjin.shopping.smartphone.service.SmartPhoneService;
+import com.seongjin.shopping.smartphone.to.GalaxyTO;
 import com.seongjin.shopping.smartphone.to.IPhoneTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -21,7 +22,7 @@ public class SmartPhoneController {
     ModelMap map = null;
 
 
-    @RequestMapping(value = "/detailInfo" , method = RequestMethod.GET)
+    @RequestMapping(value = "/iphoneDetailInfo" , method = RequestMethod.GET)
     public ModelMap SmartPhoneDetailInfo(HttpServletRequest request , HttpServletResponse response){
 
         String productName = request.getParameter("productName");
@@ -43,5 +44,6 @@ public class SmartPhoneController {
         }
         return map;
     }
+
 
 }

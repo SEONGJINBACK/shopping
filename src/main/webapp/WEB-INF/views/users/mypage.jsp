@@ -28,12 +28,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: ivory;
+            background-color: black;
             padding: 8px 12px;
+            color: white;
         }
 
         .subbar {
-            background-color: ivory;
+            background-color: black;
             padding: 8px 12px;
             text-align: center;
         }
@@ -50,7 +51,9 @@
 
         a {
             text-decoration: none;
-            color: black;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .navbar__menu {
@@ -176,9 +179,7 @@
 
 <nav class="navbar">
     <div class="navbar__logo">
-        <i class="material-symbols-outlined" style="float: left; ">
-            home</i>
-        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; ">White Shop</a>
+        <a href="${pageContext.request.contextPath}/" style="margin-left: 10px; color: white; font-weight: bold; font-size: 24px;">White Shop</a>
     </div>
 
     <div class="search">
@@ -190,18 +191,18 @@
         <%
             if (userName != "GUEST") {
         %>
-        <a href="${pageContext.request.contextPath}/users/mypage" class="navbar__toggleBtn" style="margin-right: 5px;">MYPAGE</a>
+        <a href="${pageContext.request.contextPath}/users/mypage?userId=${sessionScope.id}" class="navbar__toggleBtn" style="margin-right: 5px; color: white; font-weight: bold; font-size: 24px;">MYPAGE</a>
         <a href="${pageContext.request.contextPath}/users/session/logout" class="navbar__toggleBtn"
-           style="margin-right: 40px;">LOGOUT</a>
+           style="margin-right: 40px; color: white; font-weight: bold; font-size: 24px;">LOGOUT</a>
         <%
         } else {
         %>
-        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px;">JOIN</a>
-        <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px;">LOGIN</a>
+        <a href="${pageContext.request.contextPath}/users/join" class="navbar__toggleBtn" style="margin-right: 5px; color: white; font-weight: bold; font-size: 24px;">JOIN</a>
+        <a href="${pageContext.request.contextPath}/users/login" class="navbar__toggleBtn" style="margin-right: 55px; color: white; font-weight: bold; font-size: 24px;">LOGIN</a>
+
         <%
             }
         %>
-
 
     </div>
 
@@ -210,11 +211,11 @@
 
 <nav class="subbar">
     <ul class="subbar__menu">
-        <li style="margin-left: 150px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Weddings</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Bookings</a></li>
+        <li style="margin-left: 150px; margin-top: 10px;"><a href="${pageContext.request.contextPath}/smartphone/iphone">IPhone</a></li>
+        <li><a href="#">Galaxy</a></li>
+        <li><a href="#">GalaxyTAP</a></li>
+        <li><a href="#">IPAD</a></li>
+        <li><a href="#">LG</a></li>
         <li style="float: right;"><a href="#"><%=userName%>님 환영합니다.</a></li>
     </ul>
     <div style="display: inline-flex;"></div>
@@ -694,6 +695,7 @@
     }
 
 </script>
+
 
 </body>
 </html>
